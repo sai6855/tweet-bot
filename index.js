@@ -1,16 +1,16 @@
-import { TwitterClient } from "twitter-api-client";
-
 import { createRequire } from "module";
 
 const require = createRequire(import.meta.url);
 
 var Twit = require("twit");
 
+require("dotenv").config();
+
 var T = new Twit({
-  consumer_key: "25NXNF6DYmx1evxcgqav55bCI",
-  consumer_secret: "jY4NPPZY7Uhg03N70t06AEvvSQwre9eZHRsfzNedIu22lylyyd",
-  access_token: "2794006624-86iJzLvtifJ13TctcAsfEDuCEh8aBh9IUH62VFt",
-  access_token_secret: "OyhFUvj2GvMm0e9SbLw0KMiwit9fem5GkRAgUpiPeBhMi",
+  consumer_key: process.env.consumer_key,
+  consumer_secret: process.env.consumer_secret,
+  access_token: process.env.access_token,
+  access_token_secret: process.env.access_token_secret,
 });
 
 const checktweets = () => {
@@ -21,11 +21,13 @@ const checktweets = () => {
       const tweetCricketTamizhan = data.statuses[0];
       const interval =
         (new Date() - new Date(tweetCricketTamizhan.created_at)) / (1000 * 60);
+      console.log(interval);
+      if (interval < 1) {
+        console.log("pp1");
 
-      if (interval < 0.6) {
         console.log(tweetCricketTamizhan);
-        const accountSid = "AC6bb57810d3168622b5818359678967cc";
-        const authToken = "13aba2399d137b84e57264aef2817002";
+        const accountSid = process.env.ACCOUNT_SID;
+        const authToken = process.env.AUTH_TOKEN;
         const client = require("twilio")(accountSid, authToken);
 
         client.messages
@@ -49,7 +51,7 @@ const checktweets = () => {
       const interval =
         (new Date() - new Date(tweetlucky7777777a.created_at)) / (1000 * 60);
 
-      if (interval < 0.6) {
+      if (interval < 1) {
         console.log(tweetlucky7777777a);
         const accountSid = "AC6bb57810d3168622b5818359678967cc";
         const authToken = "13aba2399d137b84e57264aef2817002";
